@@ -1,0 +1,25 @@
+# Runs on port 8082 and calls patient-service at patient-service.url.
+server:
+  port: 8082
+
+spring:
+  application:
+    name: appointment-service
+  datasource:
+    url: jdbc:h2:mem:appointments;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+# Overridden by the PATIENT_SERVICE_URL environment variable in Docker
+patient-service:
+  url: ${PATIENT_SERVICE_URL:http://localhost:8081}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

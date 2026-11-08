@@ -1,0 +1,22 @@
+# Runs on port 8081. Uses in-memory H2 unless SPRING_DATASOURCE_* environment
+# variables point it at MySQL (Docker Compose does this).
+server:
+  port: 8081
+
+spring:
+  application:
+    name: patient-service
+  datasource:
+    url: jdbc:h2:mem:patients;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
